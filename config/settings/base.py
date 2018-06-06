@@ -68,10 +68,11 @@ THIRD_PARTY_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'rest_framework',
+    'django_filters',
 ]
 LOCAL_APPS = [
     'moto.users.apps.UsersAppConfig',
-    'moto.website.apps.WebsiteConfig',
+    'moto.website',
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps

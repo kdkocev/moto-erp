@@ -6,7 +6,8 @@ from django.views.generic import TemplateView
 from django.views import defaults as default_views
 
 urlpatterns = [
-    path("", include("moto.website.urls", namespace="website")),
+    path("/", include("moto.website.urls", namespace="website")),
+    path("api/", include("moto.website.apis_urls", namespace="website_apis")),
     path("home/", TemplateView.as_view(template_name="pages/home.html"), name="home"),
     path(
         "about/",

@@ -39,7 +39,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
 
 DATABASES = {
-    'default': env.db('DATABASE_URL', default='postgres:///moto'),
+    'default': env.db('DATABASE_URL', default='postgres:///moto-erp'),
 }
 DATABASES['default']['ATOMIC_REQUESTS'] = True
 
@@ -69,6 +69,7 @@ THIRD_PARTY_APPS = [
     'allauth.socialaccount',
     'rest_framework',
     'django_filters',
+    'corsheaders',
 ]
 LOCAL_APPS = [
     'moto.users.apps.UsersAppConfig',
@@ -132,6 +133,7 @@ AUTH_PASSWORD_VALIDATORS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -240,3 +242,7 @@ SOCIALACCOUNT_ADAPTER = 'moto.users.adapters.SocialAccountAdapter'
 
 # Your stuff...
 # ------------------------------------------------------------------------------
+
+CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_WHITELIST = env.list('DJANGO_CORS_ORIGIN_WHITELIST', default=[
+                                 'http://localhost:3000', 'http://localhost:6006'])

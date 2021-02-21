@@ -1,16 +1,11 @@
-from django.shortcuts import get_object_or_404
-from rest_framework.response import Response
-from rest_framework.views import APIView
-from rest_framework.mixins import CreateModelMixin
-
 from rest_framework.generics import (
     ListCreateAPIView,
     RetrieveUpdateAPIView
 )
 
 from moto.website.filters import OrderFilter
-from moto.website.serializers import OrderSerializer, PartSerializer
-from moto.website.models import Order, Part
+from moto.website.serializers import OrderSerializer, PartSerializer, CastingSerializer
+from moto.website.models import Order, Part, Casting
 
 
 class OrderListCreateApi(ListCreateAPIView):
@@ -32,3 +27,13 @@ class PartListCreateApi(ListCreateAPIView):
 class PartRetrieveUpdateApi(RetrieveUpdateAPIView):
     serializer_class = PartSerializer
     queryset = Part.objects.all()
+
+
+class CastingListCreateApi(ListCreateAPIView):
+    serializer_class = CastingSerializer
+    queryset = Casting.objects.all()
+
+
+class CastingRetrieveUpdateApi(RetrieveUpdateAPIView):
+    serializer_class = CastingSerializer
+    queryset = Casting.objects.all()

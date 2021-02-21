@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from moto.website.models import Order, Part
+from moto.website.models import Order, Part, Casting
 
 
 class OrderSerializer(serializers.ModelSerializer):
@@ -40,6 +40,22 @@ class PartSerializer(serializers.ModelSerializer):
         instance.price_total = validated_data.get('price_total', instance.price_total)
         instance.price_machining = validated_data.get('price_machining', instance.price_machining)
         instance.casting = validated_data.get('casting', instance.casting)
+        instance.save()
+
+        return instance
+
+
+class CastingSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Casting
+        fields = '__all__'
+        extra_kwargs = {'id': {'read_only': True}}
+
+    def create(self, validated_data):
+        return Casting.objects.create(**validated_data)
+
+    def update(self, instance, validated_data):
+        instance.number = validated_data.get('number', instance.number)
         instance.save()
 
         return instance

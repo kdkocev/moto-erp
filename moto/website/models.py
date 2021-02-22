@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 
 class Part(models.Model):
@@ -26,7 +27,13 @@ class Order(models.Model):
     date_of_expedition = models.DateField()
     date_of_delivery = models.DateField()
     completed_at = models.DateField(blank=True, null=True)
-    created_at = models.DateField(auto_now_add=True)
+    created_at = models.DateField()
+
+    def save(self, *args, **kwargs):
+        ''' On save, update timestamp '''
+        if not self.id:
+            self.created = timezone.now()
+        return super(Order, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.order_number

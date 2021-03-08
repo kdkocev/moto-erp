@@ -62,3 +62,7 @@ INSTALLED_APPS += ['django_extensions']  # noqa F405
 
 # Your stuff...
 # ------------------------------------------------------------------------------
+
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
+}

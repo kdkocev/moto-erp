@@ -20,7 +20,7 @@ class Casting(models.Model):
 
 
 class Order(models.Model):
-    order_number = models.CharField(max_length=255, unique=True)
+    number = models.CharField(max_length=255, unique=True)
     part = models.ForeignKey('Part', on_delete=models.CASCADE)
     amount = models.IntegerField()
     date_received = models.DateField()
@@ -36,4 +36,4 @@ class Order(models.Model):
         return super(Order, self).save(*args, **kwargs)
 
     def __str__(self):
-        return self.order_number
+        return self.number

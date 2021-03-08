@@ -1,20 +1,24 @@
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.generics import (
     ListCreateAPIView,
-    RetrieveUpdateAPIView
+    RetrieveUpdateDestroyAPIView
 )
+from rest_framework.filters import OrderingFilter, SearchFilter
 
-from moto.website.filters import OrderFilter
 from moto.website.serializers import OrderSerializer, PartSerializer, CastingSerializer
 from moto.website.models import Order, Part, Casting
 
 
 class OrderListCreateApi(ListCreateAPIView):
     serializer_class = OrderSerializer
-    filter_class = OrderFilter
     queryset = Order.objects.all()
+    filter_backends = [DjangoFilterBackend, OrderingFilter, SearchFilter]
+    filterset_fields = '__all__'
+    ordering_fields = '__all__'
+    ordering = ['date_of_expedition']
+    search_fields = ['number']
 
-
-class OrderRetrieveUpdateApi(RetrieveUpdateAPIView):
+class OrderRetrieveUpdateApi(RetrieveUpdateDestroyAPIView):
     serializer_class = OrderSerializer
     queryset = Order.objects.all()
 
@@ -22,9 +26,14 @@ class OrderRetrieveUpdateApi(RetrieveUpdateAPIView):
 class PartListCreateApi(ListCreateAPIView):
     serializer_class = PartSerializer
     queryset = Part.objects.all()
+    filter_backends = [DjangoFilterBackend, OrderingFilter, SearchFilter]
+    filterset_fields = '__all__'
+    ordering_fields = '__all__'
+    ordering = ['id']
+    search_fields = ['number']
 
 
-class PartRetrieveUpdateApi(RetrieveUpdateAPIView):
+class PartRetrieveUpdateApi(RetrieveUpdateDestroyAPIView):
     serializer_class = PartSerializer
     queryset = Part.objects.all()
 
@@ -34,6 +43,6 @@ class CastingListCreateApi(ListCreateAPIView):
     queryset = Casting.objects.all()
 
 
-class CastingRetrieveUpdateApi(RetrieveUpdateAPIView):
+class CastingRetrieveUpdateApi(RetrieveUpdateDestroyAPIView):
     serializer_class = CastingSerializer
     queryset = Casting.objects.all()

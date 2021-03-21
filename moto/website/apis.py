@@ -62,8 +62,8 @@ class CastingRetrieveUpdateApi(RetrieveUpdateDestroyAPIView):
 class ExpeditionListCreateApi(ListCreateAPIView):
     serializer_class = ExpeditionSerializer
     queryset = Expedition.objects.all()
-    filters_backends = [DjangoFilterBackend, OrderingFilter, SearchFilter]
+    filter_backends = [DjangoFilterBackend, OrderingFilter, SearchFilter]
     filterset_fields = '__all__'
     ordering_fields = '__all__'
-    ordering = ['id']
+    ordering = ['date_of_expedition']
     search_fields = ['order__number']

@@ -29,12 +29,6 @@ class Order(models.Model):
     completed_at = models.DateField(blank=True, null=True)
     created_at = models.DateField()
 
-    def save(self, *args, **kwargs):
-        ''' On save, update timestamp '''
-        if not self.id:
-            self.created = timezone.now()
-        return super(Order, self).save(*args, **kwargs)
-
     def __str__(self):
         return self.number
 
@@ -44,3 +38,6 @@ class Expedition(models.Model):
     amount = models.IntegerField()  # Amount of parts sent
     date_of_expedition = models.DateField()
     created_at = models.DateField()
+
+    def __str__(self):
+        return str(self.date_of_expedition)

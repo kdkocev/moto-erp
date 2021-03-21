@@ -6,7 +6,8 @@ from moto.website.apis import (
   PartListCreateApi,
   PartRetrieveUpdateApi,
   CastingListCreateApi,
-  CastingRetrieveUpdateApi
+  CastingRetrieveUpdateApi,
+  ExpeditionListCreateApi
 )
 
 app_name = "website_apis"
@@ -17,4 +18,5 @@ urlpatterns = [
     path("part/<int:pk>", PartRetrieveUpdateApi.as_view(), name="part-retrieve-update-api"),
     path("casting", CastingListCreateApi.as_view(), name="casting-list-create-api"),
     path("casting/<int:pk>", CastingRetrieveUpdateApi.as_view(), name="casting-retrieve-update-api"),
+    path("expedition", ExpeditionListCreateApi.as_view(), name="expedition-list-create-api")
 ]

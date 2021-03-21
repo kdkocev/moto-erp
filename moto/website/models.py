@@ -37,3 +37,10 @@ class Order(models.Model):
 
     def __str__(self):
         return self.number
+
+
+class Expedition(models.Model):
+    order = models.ForeignKey('Order', on_delete=models.CASCADE)
+    amount = models.IntegerField()  # Amount of parts sent
+    date_of_expedition = models.DateField()
+    created_at = models.DateField()

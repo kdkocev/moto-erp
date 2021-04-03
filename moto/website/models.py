@@ -27,6 +27,7 @@ class Order(models.Model):
     date_of_delivery = models.DateField()
     completed_at = models.DateField(blank=True, null=True)
     created_at = models.DateField()
+    priority = models.IntegerField(default=0)
 
     def __str__(self):
         return self.number

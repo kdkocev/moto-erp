@@ -40,3 +40,15 @@ class Expedition(models.Model):
 
     def __str__(self):
         return str(self.date_of_expedition)
+
+
+class StoredCastings(models.Model):
+    casting = models.ForeignKey('Casting', on_delete=models.CASCADE)
+    amount = models.IntegerField()
+    created_at = models.DateField()
+
+
+class MachinedParts(models.Model):
+    part = models.ForeignKey('Part', on_delete=models.CASCADE)
+    amount = models.IntegerField()
+    created_at = models.DateField()

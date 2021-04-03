@@ -9,9 +9,18 @@ from moto.website.serializers import (
     OrderSerializer,
     PartSerializer,
     CastingSerializer,
-    ExpeditionSerializer
+    ExpeditionSerializer,
+    StoredCastingsSerializer,
+    MachinedPartsSerializer
 )
-from moto.website.models import Order, Part, Casting, Expedition
+from moto.website.models import (
+    Order,
+    Part,
+    Casting,
+    Expedition,
+    StoredCastings,
+    MachinedParts
+)
 
 
 class OrderListCreateApi(ListCreateAPIView):
@@ -67,3 +76,38 @@ class ExpeditionListCreateApi(ListCreateAPIView):
     ordering_fields = '__all__'
     ordering = ['date_of_expedition']
     search_fields = ['order__number']
+
+
+class ExpeditionRetrieveUpdateApi(RetrieveUpdateDestroyAPIView):
+    serializer_class = ExpeditionSerializer
+    queryset = Expedition.objects.all()
+
+
+class StoredCastingsListCreateApi(ListCreateAPIView):
+    serializer_class = StoredCastingsSerializer
+    queryset = StoredCastings.objects.all()
+    filter_backends = [DjangoFilterBackend, OrderingFilter, SearchFilter]
+    filter_fieds = '__all__'
+    ordering_fields = '__all__'
+    ordering = ['created_at']
+    search_fields = ['casting__number']
+
+
+class StoredCastingsRetrieveUpdateApi(RetrieveUpdateDestroyAPIView):
+    serializer_class = StoredCastingsSerializer
+    queryset = StoredCastings.objects.all()
+
+
+class MachinedPartsListCreateApi(ListCreateAPIView):
+    serializer_class = MachinedPartsSerializer
+    queryset = MachinedParts.objects.all()
+    filter_backends = [DjangoFilterBackend, OrderingFilter, SearchFilter]
+    filter_fieds = '__all__'
+    ordering_fields = '__all__'
+    ordering = ['created_at']
+    search_fields = ['part__number']
+
+
+class MachinedPartsRetrieveUpdateApi(RetrieveUpdateDestroyAPIView):
+    serializer_class = MachinedPartsSerializer
+    queryset = MachinedParts.objects.all()
